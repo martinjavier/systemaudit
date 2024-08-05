@@ -8,4 +8,4 @@ RUN npm install
 
 EXPOSE 1234
 
-CMD [ "npm", "dev3"]
+CMD [ "npm", "npm run dev3"]
