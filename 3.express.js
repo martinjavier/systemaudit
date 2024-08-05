@@ -341,6 +341,6 @@ app.use((req, res) => {
   res.status(404).send('<h1>Error 404</h1>')
 })
 
-app.listen(1234, '0.0.0.0', () => {
+app.listen(1234, () => {
   console.log('Server running on http://0.0.0.0:1234')
 })
