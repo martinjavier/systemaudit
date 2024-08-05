@@ -51,7 +51,6 @@ app.get('/', (req, res) => {
 <a href="/red">Placas de Red</a><br/>
 <a href="/wanip">Información de la red</a><br/>
 <a href="/machine">Información del Equipo</a><br/>
-<a href="/memoriaram">Memoria RAM</a><br/>
 <a href="/swapinfo">SWAP info</a><br/>
 <a href="/basicinfo">Información Básica</a><br/>
 </BODY></HTML>
@@ -60,7 +59,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/temperatura', (req, res) => {
-  exec('inxi -Fxz | grep temp', (error, stdout, stderr) => {
+  exec('inxi -Fxz', (error, stdout, stderr) => {
     if (error) {
       return res.status(500).send(`Error de ejecución: ${error}`)
     }
@@ -79,7 +78,26 @@ app.get('/temperatura', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`      
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información de Temperaturas</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Temperaturas</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
   })
 })
 
@@ -146,7 +164,26 @@ app.get('/procesador', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`      
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información del Procesador</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Procesador</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
   })
 })
 
@@ -170,7 +207,24 @@ app.get('/red', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`<!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información de la Red</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Red</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>`)
   })
 })
 
@@ -194,7 +248,25 @@ app.get('/wanip', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información de dispositivos de Red</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Dispositivos de Red</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>`)
   })
 })
 
@@ -218,36 +290,30 @@ app.get('/machine', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
-  })
-})
-
-app.get('/memoriaram', (req, res) => {
-  exec('inxi -m', (error, stdout, stderr) => {
-    if (error) {
-      return res.status(500).send(`Error de ejecución: ${error}`)
-    }
-    if (stderr) {
-      return res.status(500).send(`Error de stderr: ${stderr}`)
-    }
-    // Limpiamos la salida
-    const cleanOutput = stdout
-      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
-      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
-      .split('\n') // Divide en líneas
-      .filter(line => line.trim() !== '') // Elimina líneas vacías
-
-    // Formateamos la salida
-    const formattedOutput = cleanOutput.map(line => {
-      const parts = line.split(':').map(part => part.trim())
-      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
-    }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`
+       <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información sobre la computadora</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Información de la Computadora</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>`)
   })
 })
 
 app.get('/particiones', (req, res) => {
-  exec('inxi -l', (error, stdout, stderr) => {
+  exec('inxi -P', (error, stdout, stderr) => {
     if (error) {
       return res.status(500).send(`Error de ejecución: ${error}`)
     }
@@ -266,7 +332,26 @@ app.get('/particiones', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información sobre las Particiones</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Particiones</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
   })
 })
 
@@ -290,7 +375,26 @@ app.get('/swapinfo', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información sobre la Memoria SWAP</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Memoria SWAP</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
   })
 })
 
@@ -314,7 +418,26 @@ app.get('/basicinfo', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información Básica</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Información Básica</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
   })
 })
 
