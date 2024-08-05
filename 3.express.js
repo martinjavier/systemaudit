@@ -39,7 +39,8 @@ app.get('/', (req, res) => {
             transition: color 0.3s ease;
         }
         a:hover {
-            color: #2980b9;
+            color: #2910b9;
+            font-size: 32px;
         }
     </STYLE></HEAD>  
   <BODY>
