@@ -7,6 +7,43 @@ const dittoJSON = require('./pokemon/ditto.json')
 app.disable('x-powered-by')
 
 app.get('/', (req, res) => {
+  const cuerpo = `<HTML>
+  <HEAD>
+    <STYLE>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+        }
+        a {
+            font-size: 20px;
+            line-height: 1.5;
+            display: block;
+            margin-bottom: 10px;
+        }
+        b {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 20px;
+        }
+    </STYLE></HEAD>  
+  <BODY><b>Bienvenidos</b><br/>
+<a href="/temperatura">Temperatura</a><br/>
+<a href="/discos">Discos</a><br/>
+<a href="/particiones">Particiones</a><br/>
+<a href="/procesador">Procesador</a><br/>
+<a href="/red">Red</a><br/>
+<a href="/wanip">Wan IP</a><br/>
+<a href="/machine">Equipo</a><br/>
+<a href="/memoriaram">Memoria RAM</a><br/>
+<a href="/particiones">Particiones</a><br/>
+<a href="/swapinfo">SWAP info</a><br/>
+<a href="/basicinfo">Información Básica</a><br/>
+</BODY></HTML>
+`
+  res.send(cuerpo)
+})
+
+app.get('/temperatura', (req, res) => {
   exec('inxi -Fxz | grep temp', (error, stdout, stderr) => {
     if (error) {
       console.error(`Error de ejecución: ${error}`)
@@ -28,7 +65,267 @@ app.get('/', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b>`)
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/discos', (req, res) => {
+  exec('inxi -D', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/particiones', (req, res) => {
+  exec('inxi -P', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/procesador', (req, res) => {
+  exec('inxi -C', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/red', (req, res) => {
+  exec('inxi -N', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/wanip', (req, res) => {
+  exec('inxi -i', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/machine', (req, res) => {
+  exec('inxi -M', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/memoriaram', (req, res) => {
+  exec('inxi -m', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/particiones', (req, res) => {
+  exec('inxi -l', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/swapinfo', (req, res) => {
+  exec('inxi -j', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+  })
+})
+
+app.get('/basicinfo', (req, res) => {
+  exec('inxi -b', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error de ejecución: ${error}`)
+      return
+    }
+    if (stderr) {
+      console.error(`Error de stderr: ${stderr}`)
+      return
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+      .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
   })
 })
 
