@@ -66,38 +66,59 @@ app.get('/temperatura', (req, res) => {
     if (stderr) {
       return res.status(500).send(`Error de stderr: ${stderr}`)
     }
-    // Limpiamos la salida
-    const cleanOutput = stdout
-      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
-      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
-      .split('\n') // Divide en líneas
-      .filter(line => line.trim() !== '') // Elimina líneas vacías
 
-    // Formateamos la salida
-    const formattedOutput = cleanOutput.map(line => {
-      const parts = line.split(':').map(part => part.trim())
-      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
-    }).join('')
-    res.send(`      
-      <!DOCTYPE html>
-      <html lang="es">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Información de Temperaturas</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
-      </head>
-      <body>
-        <h1>Temperaturas</h1>
-        ${formattedOutput}
-        <a href="javascript:history.back()">VOLVER</a>
-      </body>
-      </html>
-      `)
+    // Función para limpiar y formatear una sección
+    const formatSection = (section) => {
+      return section
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line !== '')
+        .map(line => {
+          const [key, ...valueParts] = line.split(':')
+          const value = valueParts.join(':').trim()
+          return `<p><strong>${key}:</strong> ${value}</p>`
+        })
+        .join('')
+    }
+
+    // Extraer secciones
+    const sections = stdout.split(/(?=Sensors:|Drives:)/)
+    const sensorsSection = sections.find(section => section.startsWith('Sensors:'))
+    const drivesSection = sections.find(section => section.startsWith('Drives:'))
+
+    // Formatear secciones
+    const formattedSensors = sensorsSection ? formatSection(sensorsSection) : '<p>No se encontró información de sensores.</p>'
+    const formattedDrives = drivesSection ? formatSection(drivesSection) : '<p>No se encontró información de discos.</p>'
+
+    // Enviar respuesta HTML
+    res.send(`
+     <!DOCTYPE html>
+     <html lang="es">
+     <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Información de Sensores y Discos</title>
+       <style>
+         body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+         h1, h2 { color: #333; }
+         section { margin-bottom: 30px; }
+         a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+       </style>
+     </head>
+     <body>
+       <h1>Información de Sensores y Discos</h1>
+       <section>
+         <h2>Sensores</h2>
+         ${formattedSensors}
+       </section>
+       <section>
+         <h2>Discos</h2>
+         ${formattedDrives}
+       </section>
+       <a href="javascript:history.back()">VOLVER</a>
+     </body>
+     </html>
+   `)
   })
 })
 
