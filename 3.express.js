@@ -13,20 +13,37 @@ app.get('/', (req, res) => {
         body {
             font-family: Arial, sans-serif;
             font-size: 18px;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .welcome {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
         a {
-            font-size: 20px;
-            line-height: 1.5;
+            font-size: 30px;
+            line-height: 1.0;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 0px;
+            color: #3498db;
+            text-align: center;
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
-        b {
-            font-size: 24px;
-            display: block;
-            margin-bottom: 20px;
+        a:hover {
+            color: #2980b9;
         }
     </STYLE></HEAD>  
-  <BODY><b>Bienvenidos</b><br/>
+  <BODY>
+  <div class="welcome">Bienvenidos</div>
 <a href="/temperatura">Temperatura</a><br/>
 <a href="/discos">Discos</a><br/>
 <a href="/particiones">Particiones</a><br/>
