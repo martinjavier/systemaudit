@@ -16,7 +16,8 @@ app.get('/', (req, res) => {
       console.error(`Error de stderr: ${stderr}`)
       return
     }
-    res.send(`<b>Contenido: ${stdout.toString}</b>`)
+    const contenido = stdout.toString
+    res.send(`<b>Contenido: ${contenido}</b>`)
   })
 })
 
