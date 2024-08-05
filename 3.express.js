@@ -70,12 +70,18 @@ app.get('/temperatura', (req, res) => {
     // Función para limpiar y formatear una sección
     const formatSection = (section) => {
       return section
+        .replace(/\u001b\[\d+m/g, '') // Elimina códigos de color ANSI
+        .replace(/\d+/g, '') // Elimina los números que preceden a las etiquetas
         .split('\n')
         .map(line => line.trim())
-        .filter(line => line !== '')
+        .filter(line => line !== '' && !line.startsWith(':'))
         .map(line => {
           const [key, ...valueParts] = line.split(':')
           const value = valueParts.join(':').trim()
+          // Maneja casos especiales como "Sensors:" o "Drives:" que no tienen valor
+          if (!value) {
+            return `<h3>${key}</h3>`
+          }
           return `<p><strong>${key}:</strong> ${value}</p>`
         })
         .join('')
@@ -92,33 +98,34 @@ app.get('/temperatura', (req, res) => {
 
     // Enviar respuesta HTML
     res.send(`
-     <!DOCTYPE html>
-     <html lang="es">
-     <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>Información de Sensores y Discos</title>
-       <style>
-         body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-         h1, h2 { color: #333; }
-         section { margin-bottom: 30px; }
-         a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-       </style>
-     </head>
-     <body>
-       <h1>Información de Sensores y Discos</h1>
-       <section>
-         <h2>Sensores</h2>
-         ${formattedSensors}
-       </section>
-       <section>
-         <h2>Discos</h2>
-         ${formattedDrives}
-       </section>
-       <a href="javascript:history.back()">VOLVER</a>
-     </body>
-     </html>
-   `)
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información de Sensores y Discos</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1, h2, h3 { color: #333; }
+          section { margin-bottom: 30px; }
+          p { margin: 5px 0; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Información de Sensores y Discos</h1>
+        <section>
+          <h2>Sensores</h2>
+          ${formattedSensors}
+        </section>
+        <section>
+          <h2>Discos</h2>
+          ${formattedDrives}
+        </section>
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+    `)
   })
 })
 
