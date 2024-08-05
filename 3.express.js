@@ -62,12 +62,10 @@ app.get('/', (req, res) => {
 app.get('/temperatura', (req, res) => {
   exec('inxi -Fxz | grep temp', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -88,12 +86,10 @@ app.get('/temperatura', (req, res) => {
 app.get('/discos', (req, res) => {
   exec('inxi -D', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -107,19 +103,36 @@ app.get('/discos', (req, res) => {
       const parts = line.split(':').map(part => part.trim())
       return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
     }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información de Discos</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Información de Discos</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
   })
 })
 
 app.get('/procesador', (req, res) => {
   exec('inxi -C', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -140,12 +153,10 @@ app.get('/procesador', (req, res) => {
 app.get('/red', (req, res) => {
   exec('inxi -N', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -166,12 +177,10 @@ app.get('/red', (req, res) => {
 app.get('/wanip', (req, res) => {
   exec('inxi -i', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -192,12 +201,10 @@ app.get('/wanip', (req, res) => {
 app.get('/machine', (req, res) => {
   exec('inxi -M', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -218,12 +225,10 @@ app.get('/machine', (req, res) => {
 app.get('/memoriaram', (req, res) => {
   exec('inxi -m', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -244,12 +249,10 @@ app.get('/memoriaram', (req, res) => {
 app.get('/particiones', (req, res) => {
   exec('inxi -l', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -270,12 +273,10 @@ app.get('/particiones', (req, res) => {
 app.get('/swapinfo', (req, res) => {
   exec('inxi -j', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
@@ -296,12 +297,10 @@ app.get('/swapinfo', (req, res) => {
 app.get('/basicinfo', (req, res) => {
   exec('inxi -b', (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
+      return res.status(500).send(`Error de ejecución: ${error}`)
     }
     if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
+      return res.status(500).send(`Error de stderr: ${stderr}`)
     }
     // Limpiamos la salida
     const cleanOutput = stdout
