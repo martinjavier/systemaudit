@@ -4,21 +4,6 @@ const { exec } = require('child_process')
 const PORT = process.env.PORT ?? 1234
 const dittoJSON = require('./pokemon/ditto.json')
 
-function formatLsOutput (output) {
-  // Dividir la salida en líneas
-  const lines = output.trim().split('\n')
-
-  // Crear un array de objetos con nombre y tipo
-  const formattedOutput = lines.map(line => {
-    const isDirectory = line.startsWith('d')
-    return {
-      name: line.split(/\s+/).pop(), // Tomar el último elemento (nombre del archivo/directorio)
-      type: isDirectory ? 'directory' : 'file'
-    }
-  })
-  return formattedOutput
-}
-
 app.disable('x-powered-by')
 
 app.get('/', (req, res) => {
@@ -31,8 +16,7 @@ app.get('/', (req, res) => {
       console.error(`Error de stderr: ${stderr}`)
       return
     }
-    const formattedResult = formatLsOutput(stdout)
-    const formateado = JSON.stringify(formattedResult, null, 2)
+    const formateado = JSON.stringify(stdout, null, 2)
     res.send(`<b>Contenido: ${formateado}</b>`)
   })
 })
