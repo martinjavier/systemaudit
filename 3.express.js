@@ -20,10 +20,10 @@ app.get('/', (req, res) => {
         .welcome {
             font-size: 32px;
             font-weight: bold;
-            color: #2c3e50;
+            color: #2c1e20;
             text-align: center;
             padding: 20px;
-            background-color: #ecf0f1;
+            background-color: #aef0f1;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
         }
     </STYLE></HEAD>  
   <BODY>
-  <div class="welcome">Bienvenidos</div>
+  <div class="welcome">System Audit version 0.5</div>
 <a href="/temperatura">Temperaturas</a><br/>
 <a href="/discos">Discos</a><br/>
 <a href="/particiones">Particiones</a><br/>
