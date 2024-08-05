@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const { exec } = require('child_process')
-const PORT = 1234
 const dittoJSON = require('./pokemon/ditto.json')
 
 app.disable('x-powered-by')
@@ -9,6 +8,7 @@ app.disable('x-powered-by')
 app.get('/', (req, res) => {
   const cuerpo = `<HTML>
   <HEAD>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <STYLE>
         body {
             font-family: Arial, sans-serif;
@@ -341,6 +341,6 @@ app.use((req, res) => {
   res.status(404).send('<h1>Error 404</h1>')
 })
 
-app.listen(1234, () => {
-  console.log('Server running on http://0.0.0.0:1234')
+app.listen(21900, () => {
+  console.log('Server running on http://localhost:21900')
 })
