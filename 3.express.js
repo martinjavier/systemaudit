@@ -44,15 +44,14 @@ app.get('/', (req, res) => {
     </STYLE></HEAD>  
   <BODY>
   <div class="welcome">Bienvenidos</div>
-<a href="/temperatura">Temperatura</a><br/>
+<a href="/temperatura">Temperaturas</a><br/>
 <a href="/discos">Discos</a><br/>
 <a href="/particiones">Particiones</a><br/>
 <a href="/procesador">Procesador</a><br/>
-<a href="/red">Red</a><br/>
-<a href="/wanip">Wan IP</a><br/>
-<a href="/machine">Equipo</a><br/>
+<a href="/red">Placas de Red</a><br/>
+<a href="/wanip">Información de la red</a><br/>
+<a href="/machine">Información del Equipo</a><br/>
 <a href="/memoriaram">Memoria RAM</a><br/>
-<a href="/particiones">Particiones</a><br/>
 <a href="/swapinfo">SWAP info</a><br/>
 <a href="/basicinfo">Información Básica</a><br/>
 </BODY></HTML>
@@ -88,32 +87,6 @@ app.get('/temperatura', (req, res) => {
 
 app.get('/discos', (req, res) => {
   exec('inxi -D', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error de ejecución: ${error}`)
-      return
-    }
-    if (stderr) {
-      console.error(`Error de stderr: ${stderr}`)
-      return
-    }
-    // Limpiamos la salida
-    const cleanOutput = stdout
-      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
-      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
-      .split('\n') // Divide en líneas
-      .filter(line => line.trim() !== '') // Elimina líneas vacías
-
-    // Formateamos la salida
-    const formattedOutput = cleanOutput.map(line => {
-      const parts = line.split(':').map(part => part.trim())
-      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
-    }).join('')
-    res.send(`<b>Contenido: ${formattedOutput}</b><br/><a href="javascript:history.back()">VOLVER</a>`)
-  })
-})
-
-app.get('/particiones', (req, res) => {
-  exec('inxi -P', (error, stdout, stderr) => {
     if (error) {
       console.error(`Error de ejecución: ${error}`)
       return
