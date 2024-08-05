@@ -1,4 +1,4 @@
-FROM node:18.17.0
+FROM node:18.20.4
 WORKDIR /app
 RUN npm install -g npm@10.8.2
 COPY . .
