@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const { exec } = require('child_process')
-const PORT = process.env.PORT ?? 1234
+const PORT = 1234
 const dittoJSON = require('./pokemon/ditto.json')
 
 app.disable('x-powered-by')
@@ -341,6 +341,6 @@ app.use((req, res) => {
   res.status(404).send('<h1>Error 404</h1>')
 })
 
-app.listen(PORT, () => {
-  console.log('Servidor escuchando en el puerto http://localhost:1234')
+app.listen(1234, '0.0.0.0', () => {
+  console.log('Server running on http://0.0.0.0:1234')
 })
