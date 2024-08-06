@@ -8,6 +8,7 @@ app.disable('x-powered-by')
 app.get('/', (req, res) => {
   const cuerpo = `<HTML>
   <HEAD>
+    <title>System Audit</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <STYLE>
         body {
@@ -75,6 +76,26 @@ app.get('/temperatura', (req, res) => {
       .split('\n') // Divide en líneas
       .filter(line => line.trim() !== '') // Elimina líneas vacías
 
+    const sensors = []
+    const drives = []
+    let currentSection = null
+
+    cleanOutput.forEach((line) => {
+      if (line === 'Sensors:') {
+        currentSection = 'sensors'
+        sensors.push(line)
+      } else if (line === 'Drives:') {
+        currentSection = 'drives'
+        drives.push(line)
+      } else if (currentSection === 'sensors' && line.trim() !== '') {
+        sensors.push(line)
+      } else if (currentSection === 'drives' && line.trim() !== '') {
+        drives.push(line)
+      } else if (line.trim() === '') {
+        currentSection = null // Reseteamos la sección actual si encontramos una línea vacía
+      }
+    })
+
     // Formateamos la salida
     const formattedOutput = cleanOutput.map(line => {
       const parts = line.split(':').map(part => part.trim())
@@ -95,7 +116,11 @@ app.get('/temperatura', (req, res) => {
   </head>
   <body>
     <h1>Temperaturas</h1>
-    ${formattedOutput}
+    <h2>Sensores</h2>
+    ${sensors}
+    <h2>Drives</h2>
+    ${drives}
+    <br/>
     <a href="javascript:history.back()">VOLVER</a>
   </body>
   </html>
