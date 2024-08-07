@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
 <a href="/procesador">Procesador</a><br/>
 <a href="/machine">Información del Equipo</a><br/>
 <a href="/swapinfo">SWAP info</a><br/>
-<a href="/basicinfo">Información Básica</a><br/>
+<a href="/basicinfo">Información General</a><br/>
 </BODY></HTML>
 `
   res.send(cuerpo)
@@ -94,11 +94,9 @@ app.get('/temperatura', (req, res) => {
       }
     })
 
-    // Formateamos la salida
-    const formattedOutput = cleanOutput.map(line => {
-      const parts = line.split(':').map(part => part.trim())
-      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
-    }).join('')
+    const sensorsString = sensors.join('\n')
+    const drivesString = drives.join('\n')
+
     res.send(`
   <!DOCTYPE html>
   <html lang="es">
@@ -115,9 +113,9 @@ app.get('/temperatura', (req, res) => {
   <body>
     <h1>Temperaturas</h1>
     <h2>Sensores</h2>
-    ${sensors}
+    ${sensorsString}
     <h2>Drives</h2>
-    ${drives}
+    ${drivesString}
     <br/>
     <a href="javascript:history.back()">VOLVER</a>
   </body>
