@@ -94,8 +94,8 @@ app.get('/temperatura', (req, res) => {
       }
     })
 
-    const sensorsString = sensors.join('\n')
-    const drivesString = drives.join('\n')
+    const sensorsString = sensors.join('<br/>')
+    const drivesString = drives.join('<br/>')
 
     res.send(`
   <!DOCTYPE html>
@@ -113,7 +113,7 @@ app.get('/temperatura', (req, res) => {
   <body>
     <h1>Temperaturas</h1>
     <h2>Sensores</h2>
-    ${sensorsString}
+    <p>${sensorsString}</p>
     <h2>Drives</h2>
     ${drivesString}
     <br/>
