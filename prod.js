@@ -9,73 +9,70 @@ app.get('/', (req, res) => {
   <HEAD>
     <title>System Audit</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <STYLE>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-        button {
-          background-color: #4CAF50; /* Color de fondo */
-          border: none; /* Sin borde */
-          color: white; /* Color del texto */
-          padding: 15px 32px; /* Relleno interno */
-          text-align: center; /* Alineación del texto */
-          text-decoration: none; /* Sin subrayado */
-          display: inline-block; /* Mostrar como bloque en línea */
-          font-size: 26px; /* Tamaño de la fuente */
-          margin: 4px 2px; /* Margen externo */
-          cursor: pointer; /* Cursor al pasar por encima */
-          border-radius: 8px; /* Bordes redondeados */
-        }
-        /* Estilo al pasar el mouse por encima */
-        button:hover {
-          background-color: #45a049;
-        }
-        .welcome {
-            font-size: 32px;
-            font-weight: bold;
-            color: #2c1e20;
-            text-align: center;
-            padding: 20px;
-            background-color: #aef0f1;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-        .menu {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        a {
-            font-size: 30px;
-            line-height: 1.0;
-            display: block;
-            margin-bottom: 0px;
-            color: #3498db;
-            text-align: center;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            color: #2910b9;
-            font-size: 32px;
-        }
-    </STYLE></HEAD>  
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        display: block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </HEAD>  
   <BODY>
   <div class="welcome">System Audit version 0.5</div>
   <div class="menu">
-    <button onclick="location.href='/temperatura'" type="button">Temperaturas</button><br/>
-    <button onclick="location.href='/particiones'" type="button">Particiones</button><br/>
+    <button onclick="location.href='/temperatura'" type="button">Temperaturas</button>
+    <button onclick="location.href='/particiones'" type="button">Particiones</button>
     <button onclick="location.href='/discos'" type="button">Discos</button><br/>
-    <button onclick="location.href='/procesos'" type="button">Procesos</button><br/>
-    <button onclick="location.href='/machine'" type="button">Equipo</button><br/>
+    <button onclick="location.href='/procesos'" type="button">Procesos</button>
+    <button onclick="location.href='/machine'" type="button">Equipo</button>
     <button onclick="location.href='/swapinfo'" type="button">Swap Info</button><br/>
-    <button onclick="location.href='/clima'" type="button">Meteorología</button><br/>
-    <button onclick="location.href='/basicinfo'" type="button">Información</button><br/>
+    <button onclick="location.href='/clima'" type="button">Meteorología</button>
+    <button onclick="location.href='/basicinfo'" type="button">Información</button>
+    <button onclick="location.href='/memoria'" type="button">Memoria RAM</button>
   </div>
 </BODY></HTML>
 `
@@ -129,12 +126,60 @@ app.get('/temperatura', (req, res) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información de Temperaturas</title>
     <style>
-      body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-      h1 { color: #333; }
-      a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
     </style>
   </head>
   <body>
+    <div class="welcome">System Audit version 0.5</div>
     <h1>Temperaturas</h1>
     <h2>Sensores</h2>
     <p>${sensorsString}</p>
@@ -175,13 +220,61 @@ app.get('/discos', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información de Discos</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
       </head>
       <body>
+        <div class="welcome">System Audit version 0.5</div>
         <h1>Información de Discos</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -218,13 +311,61 @@ app.get('/procesos', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Procesos en Ejecución</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
       </head>
       <body>
+        <div class="welcome">System Audit version 0.5</div>
         <h1>Procesos</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -261,13 +402,61 @@ app.get('/machine', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información sobre la computadora</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
       </head>
       <body>
+        <div class="welcome">System Audit version 0.5</div>
         <h1>Información de la Computadora</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -303,13 +492,61 @@ app.get('/particiones', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información sobre las Particiones</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
       </head>
       <body>
+        <div class="welcome">System Audit version 0.5</div>
         <h1>Particiones</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -346,13 +583,61 @@ app.get('/swapinfo', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información sobre la Memoria SWAP</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
       </head>
       <body>
+        <div class="welcome">System Audit version 0.5</div>
         <h1>Memoria SWAP</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -389,13 +674,61 @@ app.get('/basicinfo', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información Básica</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
       </head>
       <body>
+        <div class="welcome">System Audit version 0.5</div>
         <h1>Información Básica</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -432,14 +765,153 @@ app.get('/clima', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información Climática</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 26px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+        width: 300px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .welcome {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c1e20;
+        text-align: center;
+        padding: 20px;
+        background-color: #aef0f1;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+      .menu {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      a { 
+        float: left;
+        margin-right: 10px;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+      </head>
+      <body>
+        <div class="welcome">System Audit version 0.5</div>
+        <h1>Estado del Clima</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
+  })
+})
+
+app.get('/memoria', (req, res) => {
+  exec('inxi -m', (error, stdout, stderr) => {
+    if (error) {
+      return res.status(500).send(`Error de ejecución: ${error}`)
+    }
+    if (stderr) {
+      return res.status(500).send(`Error de stderr: ${stderr}`)
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+    //  .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información de la Memoria RAM</title>
+      <style>
+          body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+          }
+          button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 26px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 300px;
+          }
+          button:hover {
+            background-color: #45a049;
+          }
+          .welcome {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c1e20;
+            text-align: center;
+            padding: 20px;
+            background-color: #aef0f1;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+          }
+          .menu {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 30px;
+          }
+          a { 
+            float: left;
+            margin-right: 10px;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+          }
         </style>
       </head>
       <body>
-        <h1>Estado del Clima</h1>
+        <div class="welcome">System Audit version 0.5</div>
+        <h1>Memoria RAM</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
       </body>
