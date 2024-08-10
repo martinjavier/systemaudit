@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
 <a href="/procesador">Procesador</a><br/>
 <a href="/machine">Información del Equipo</a><br/>
 <a href="/swapinfo">SWAP info</a><br/>
-<a href="/espaciolibre">Espacio Libre</a><br/>
+<a href="/clima">Información Climática</a><br/>
 <a href="/basicinfo">Información General</a><br/>
 </BODY></HTML>
 `
@@ -167,8 +167,8 @@ app.get('/discos', (req, res) => {
   })
 })
 
-app.get('/procesador', (req, res) => {
-  exec('inxi -C', (error, stdout, stderr) => {
+app.get('/procesos', (req, res) => {
+  exec('inxi -t', (error, stdout, stderr) => {
     if (error) {
       return res.status(500).send(`Error de ejecución: ${error}`)
     }
@@ -193,7 +193,7 @@ app.get('/procesador', (req, res) => {
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Información del Procesador</title>
+        <title>Procesos en Ejecución</title>
         <style>
           body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
           h1 { color: #333; }
@@ -201,58 +201,13 @@ app.get('/procesador', (req, res) => {
         </style>
       </head>
       <body>
-        <h1>Procesador</h1>
+        <h1>Procesos</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
       </body>
       </html>
       `)
   })
-})
-
-app.get('/espaciolibre', (req, res) => {
-  let discoSSD = ''
-  let discoNVME = ''
-  exec('df /mnt/usb-drive -h', (error, stdout, stderr) => {
-    if (error) {
-      return res.status(500).send(`Error de ejecución: ${error}`)
-    }
-    if (stderr) {
-      return res.status(500).send(`Error de stderr: ${stderr}`)
-    }
-    discoSSD = stdout
-  })
-  exec('df /dev/nvme0n1p2 -h', (error, stdout, stderr) => {
-    if (error) {
-      return res.status(500).send(`Error de ejecución: ${error}`)
-    }
-    if (stderr) {
-      return res.status(500).send(`Error de stderr: ${stderr}`)
-    }
-    discoNVME = stdout
-  })
-  res.send(`      
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Espacio Libre en Discos</title>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-        h1 { color: #333; }
-        a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-      </style>
-    </head>
-    <body>
-      <h1>Disco SSD</h1>
-      ${discoSSD}
-      <h1>Disco NVME</h1>
-      ${discoNVME}
-      <a href="javascript:history.back()">VOLVER</a>
-    </body>
-    </html>
-    `)
 })
 
 app.get('/machine', (req, res) => {
@@ -298,7 +253,7 @@ app.get('/machine', (req, res) => {
 })
 
 app.get('/particiones', (req, res) => {
-  exec('inxi -P', (error, stdout, stderr) => {
+  exec('inxi -p', (error, stdout, stderr) => {
     if (error) {
       return res.status(500).send(`Error de ejecución: ${error}`)
     }
@@ -418,6 +373,49 @@ app.get('/basicinfo', (req, res) => {
       </head>
       <body>
         <h1>Información Básica</h1>
+        ${formattedOutput}
+        <a href="javascript:history.back()">VOLVER</a>
+      </body>
+      </html>
+      `)
+  })
+})
+
+app.get('/clima', (req, res) => {
+  exec('inxi -w', (error, stdout, stderr) => {
+    if (error) {
+      return res.status(500).send(`Error de ejecución: ${error}`)
+    }
+    if (stderr) {
+      return res.status(500).send(`Error de stderr: ${stderr}`)
+    }
+    // Limpiamos la salida
+    const cleanOutput = stdout
+      .replace(/\u0003\d*/g, '') // Elimina códigos de color ANSI
+      .replace(/^\s+|\s+$/gm, '') // Elimina espacios en blanco al inicio y final de cada línea
+      .split('\n') // Divide en líneas
+    //  .filter(line => line.trim() !== '') // Elimina líneas vacías
+
+    // Formateamos la salida
+    const formattedOutput = cleanOutput.map(line => {
+      const parts = line.split(':').map(part => part.trim())
+      return `<p><strong>${parts[0]}:</strong> ${parts.slice(1).join(':')}</p>`
+    }).join('')
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Información Climática</title>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+          h1 { color: #333; }
+          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        </style>
+      </head>
+      <body>
+        <h1>Estado del Clima</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
       </body>
