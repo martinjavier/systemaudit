@@ -17,6 +17,23 @@ app.get('/', (req, res) => {
             margin: 0;
             padding: 20px;
         }
+        button {
+          background-color: #4CAF50; /* Color de fondo */
+          border: none; /* Sin borde */
+          color: white; /* Color del texto */
+          padding: 15px 32px; /* Relleno interno */
+          text-align: center; /* Alineación del texto */
+          text-decoration: none; /* Sin subrayado */
+          display: inline-block; /* Mostrar como bloque en línea */
+          font-size: 26px; /* Tamaño de la fuente */
+          margin: 4px 2px; /* Margen externo */
+          cursor: pointer; /* Cursor al pasar por encima */
+          border-radius: 8px; /* Bordes redondeados */
+        }
+        /* Estilo al pasar el mouse por encima */
+        button:hover {
+          background-color: #45a049;
+        }
         .welcome {
             font-size: 32px;
             font-weight: bold;
@@ -26,6 +43,11 @@ app.get('/', (req, res) => {
             background-color: #aef0f1;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .menu {
+            text-align: center;
+            padding: 20px;
             margin-bottom: 30px;
         }
         a {
@@ -45,14 +67,16 @@ app.get('/', (req, res) => {
     </STYLE></HEAD>  
   <BODY>
   <div class="welcome">System Audit version 0.5</div>
-<a href="/temperatura">Temperaturas</a><br/>
-<a href="/discos">Discos</a><br/>
-<a href="/particiones">Particiones</a><br/>
-<a href="/procesador">Procesador</a><br/>
-<a href="/machine">Información del Equipo</a><br/>
-<a href="/swapinfo">SWAP info</a><br/>
-<a href="/clima">Información Climática</a><br/>
-<a href="/basicinfo">Información General</a><br/>
+  <div class="menu">
+    <button onclick="location.href='/temperatura'" type="button">Temperaturas</button><br/>
+    <button onclick="location.href='/particiones'" type="button">Particiones</button><br/>
+    <button onclick="location.href='/discos'" type="button">Discos</button><br/>
+    <button onclick="location.href='/procesos'" type="button">Procesos</button><br/>
+    <button onclick="location.href='/machine'" type="button">Equipo</button><br/>
+    <button onclick="location.href='/swapinfo'" type="button">Swap Info</button><br/>
+    <button onclick="location.href='/clima'" type="button">Meteorología</button><br/>
+    <button onclick="location.href='/basicinfo'" type="button">Información</button><br/>
+  </div>
 </BODY></HTML>
 `
   res.send(cuerpo)
