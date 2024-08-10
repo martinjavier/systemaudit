@@ -7,4 +7,4 @@ RUN wget -O inxi https://github.com/smxi/inxi/raw/master/inxi \
 COPY . .
 RUN npm install
 EXPOSE 21900
-CMD ["npm", "run", "dev3"]
+CMD ["npm", "run", "prod"]
