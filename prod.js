@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const { exec } = require('child_process')
-const dittoJSON = require('./pokemon/ditto.json')
 
 app.disable('x-powered-by')
 
@@ -212,6 +211,8 @@ app.get('/procesador', (req, res) => {
 })
 
 app.get('/espaciolibre', (req, res) => {
+  let discoSSD = ''
+  let discoNVME = ''
   exec('df /mnt/usb-drive -h', (error, stdout, stderr) => {
     if (error) {
       return res.status(500).send(`Error de ejecución: ${error}`)
@@ -219,27 +220,39 @@ app.get('/espaciolibre', (req, res) => {
     if (stderr) {
       return res.status(500).send(`Error de stderr: ${stderr}`)
     }
-    res.send(`      
-      <!DOCTYPE html>
-      <html lang="es">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Espacio Libre en Discos</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-          h1 { color: #333; }
-          a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        </style>
-      </head>
-      <body>
-        <h1>Disco SSD</h1>
-        ${stdout}
-        <a href="javascript:history.back()">VOLVER</a>
-      </body>
-      </html>
-      `)
+    discoSSD = stdout
   })
+  exec('df /dev/nvme0n1p2 -h', (error, stdout, stderr) => {
+    if (error) {
+      return res.status(500).send(`Error de ejecución: ${error}`)
+    }
+    if (stderr) {
+      return res.status(500).send(`Error de stderr: ${stderr}`)
+    }
+    discoNVME = stdout
+  })
+  res.send(`      
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Espacio Libre en Discos</title>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #333; }
+        a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+      </style>
+    </head>
+    <body>
+      <h1>Disco SSD</h1>
+      ${discoSSD}
+      <h1>Disco NVME</h1>
+      ${discoNVME}
+      <a href="javascript:history.back()">VOLVER</a>
+    </body>
+    </html>
+    `)
 })
 
 app.get('/machine', (req, res) => {
