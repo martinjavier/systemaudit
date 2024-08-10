@@ -12,9 +12,9 @@ app.get('/', (req, res) => {
     <style>
       body {
         font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
+        font-size: 28px;
+        background-color: #ddddff;
+        margin: 10;
         padding: 20px;
       }
       button {
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
         font-weight: bold;
         color: #2c1e20;
         text-align: center;
-        padding: 20px;
+        padding: 10px;
         background-color: #aef0f1;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -51,7 +51,8 @@ app.get('/', (req, res) => {
         margin-bottom: 30px;
       }
       a { 
-        display: block;
+        float: left;
+        margin-right: 10px;
         margin-top: 20px;
         padding: 10px 15px;
         background-color: #007bff;
@@ -62,19 +63,20 @@ app.get('/', (req, res) => {
     </style>
   </HEAD>  
   <BODY>
-  <div class="welcome">System Audit version 0.5</div>
-  <div class="menu">
-    <button onclick="location.href='/temperatura'" type="button">Temperaturas</button>
-    <button onclick="location.href='/particiones'" type="button">Particiones</button>
-    <button onclick="location.href='/discos'" type="button">Discos</button><br/>
-    <button onclick="location.href='/procesos'" type="button">Procesos</button>
-    <button onclick="location.href='/machine'" type="button">Equipo</button>
-    <button onclick="location.href='/swapinfo'" type="button">Swap Info</button><br/>
-    <button onclick="location.href='/clima'" type="button">Meteorología</button>
-    <button onclick="location.href='/basicinfo'" type="button">Información</button>
-    <button onclick="location.href='/memoria'" type="button">Memoria RAM</button>
-  </div>
-</BODY></HTML>
+    <div class="welcome">System Audit version 1.0.5</div>
+    <div class="menu">
+      <button onclick="location.href='/temperatura'" type="button">Temperaturas</button>
+      <button onclick="location.href='/particiones'" type="button">Particiones</button>
+      <button onclick="location.href='/discos'" type="button">Discos</button>
+      <button onclick="location.href='/procesos'" type="button">Procesos</button>
+      <button onclick="location.href='/machine'" type="button">Equipo</button>
+      <button onclick="location.href='/swapinfo'" type="button">Swap Info</button>
+      <button onclick="location.href='/clima'" type="button">Meteorología</button>
+      <button onclick="location.href='/basicinfo'" type="button">Información</button>
+      <button onclick="location.href='/memoria'" type="button">Memoria RAM</button>
+    </div>
+  </BODY>
+</HTML>
 `
   res.send(cuerpo)
 })
@@ -765,58 +767,58 @@ app.get('/clima', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información Climática</title>
-  <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+        <style>
+            body {
+              font-family: Arial, sans-serif;
+              font-size: 18px;
+              background-color: #f0f0f0;
+              margin: 0;
+              padding: 20px;
+            }
+            button {
+              background-color: #4CAF50;
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 26px;
+              margin: 4px 2px;
+              cursor: pointer;
+              border-radius: 8px;
+              width: 300px;
+            }
+            button:hover {
+              background-color: #45a049;
+            }
+            .welcome {
+              font-size: 32px;
+              font-weight: bold;
+              color: #2c1e20;
+              text-align: center;
+              padding: 20px;
+              background-color: #aef0f1;
+              border-radius: 10px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+              margin-bottom: 30px;
+            }
+            .menu {
+              text-align: center;
+              padding: 20px;
+              margin-bottom: 30px;
+            }
+            a { 
+              float: left;
+              margin-right: 10px;
+              margin-top: 20px;
+              padding: 10px 15px;
+              background-color: #007bff;
+              color: white;
+              text-decoration: none;
+              border-radius: 5px;
+            }
+      </style>
       </head>
       <body>
         <div class="welcome">System Audit version 0.5</div>
