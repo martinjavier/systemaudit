@@ -4,15 +4,10 @@ const { exec } = require('child_process')
 
 app.disable('x-powered-by')
 
-app.get('/', (req, res) => {
-  const cuerpo = `<HTML>
-  <HEAD>
-    <title>System Audit</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <style>
+const sytle = `
       body {
         font-family: Arial, sans-serif;
-        font-size: 28px;
+        font-size: 18px;
         background-color: #ddddff;
         margin: 10;
         padding: 20px;
@@ -21,15 +16,18 @@ app.get('/', (req, res) => {
         background-color: #4CAF50;
         border: none;
         color: white;
-        padding: 15px 32px;
+        padding-top: 25px;
+        padding-right: 25px;
+        padding-bottom: 25px;
+        padding-left: 25px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
+        font-size: 36px;
+        margin: 20px 20px;
         cursor: pointer;
         border-radius: 8px;
-        width: 300px;
+        width: 400px;
       }
       button:hover {
         background-color: #45a049;
@@ -47,8 +45,11 @@ app.get('/', (req, res) => {
       }
       .menu {
         text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
+        padding-top: 50px;
+        padding-right: 30px;
+        padding-bottom: 50px;
+        padding-left: 80px;
+        margin-bottom: 50px;
       }
       a { 
         float: left;
@@ -59,7 +60,16 @@ app.get('/', (req, res) => {
         color: white;
         text-decoration: none;
         border-radius: 5px;
-      }
+      }`
+
+app.get('/', (req, res) => {
+  const cuerpo = `<HTML>
+  <HEAD>
+    <meta charset="UTF-8">
+    <title>System Audit</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <style>
+      ${sytle}
     </style>
   </HEAD>  
   <BODY>
@@ -125,63 +135,14 @@ app.get('/temperatura', (req, res) => {
   <html lang="es">
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información de Temperaturas</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
+      ${sytle}
     </style>
   </head>
   <body>
-    <div class="welcome">System Audit version 0.5</div>
+    <div class="welcome">System Audit version 1.0.5</div>
     <h1>Temperaturas</h1>
     <h2>Sensores</h2>
     <p>${sensorsString}</p>
@@ -222,61 +183,12 @@ app.get('/discos', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información de Discos</title>
-  <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+        <style>
+          ${sytle}
+        </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Información de Discos</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -313,61 +225,12 @@ app.get('/procesos', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Procesos en Ejecución</title>
-  <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+        <style>
+          ${sytle}
+        </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Procesos</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -404,61 +267,12 @@ app.get('/machine', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información sobre la computadora</title>
-  <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+        <style>
+          ${sytle}
+        </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Información de la Computadora</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -494,61 +308,12 @@ app.get('/particiones', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información sobre las Particiones</title>
-  <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+        <style>
+          ${sytle}
+        </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Particiones</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -585,61 +350,12 @@ app.get('/swapinfo', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información sobre la Memoria SWAP</title>
-  <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+        <style>
+          ${sytle}
+        </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Memoria SWAP</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -676,61 +392,12 @@ app.get('/basicinfo', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información Básica</title>
-  <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 18px;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 20px;
-      }
-      button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 26px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px;
-        width: 300px;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .welcome {
-        font-size: 32px;
-        font-weight: bold;
-        color: #2c1e20;
-        text-align: center;
-        padding: 20px;
-        background-color: #aef0f1;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-      }
-      .menu {
-        text-align: center;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      a { 
-        float: left;
-        margin-right: 10px;
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
+        <style>
+          ${sytle}
+        </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Información Básica</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -768,60 +435,11 @@ app.get('/clima', (req, res) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información Climática</title>
         <style>
-            body {
-              font-family: Arial, sans-serif;
-              font-size: 18px;
-              background-color: #f0f0f0;
-              margin: 0;
-              padding: 20px;
-            }
-            button {
-              background-color: #4CAF50;
-              border: none;
-              color: white;
-              padding: 15px 32px;
-              text-align: center;
-              text-decoration: none;
-              display: inline-block;
-              font-size: 26px;
-              margin: 4px 2px;
-              cursor: pointer;
-              border-radius: 8px;
-              width: 300px;
-            }
-            button:hover {
-              background-color: #45a049;
-            }
-            .welcome {
-              font-size: 32px;
-              font-weight: bold;
-              color: #2c1e20;
-              text-align: center;
-              padding: 20px;
-              background-color: #aef0f1;
-              border-radius: 10px;
-              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-              margin-bottom: 30px;
-            }
-            .menu {
-              text-align: center;
-              padding: 20px;
-              margin-bottom: 30px;
-            }
-            a { 
-              float: left;
-              margin-right: 10px;
-              margin-top: 20px;
-              padding: 10px 15px;
-              background-color: #007bff;
-              color: white;
-              text-decoration: none;
-              border-radius: 5px;
-            }
-      </style>
+          ${sytle}
+        </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Estado del Clima</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
@@ -858,61 +476,12 @@ app.get('/memoria', (req, res) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Información de la Memoria RAM</title>
-      <style>
-          body {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-          }
-          button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 26px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 8px;
-            width: 300px;
-          }
-          button:hover {
-            background-color: #45a049;
-          }
-          .welcome {
-            font-size: 32px;
-            font-weight: bold;
-            color: #2c1e20;
-            text-align: center;
-            padding: 20px;
-            background-color: #aef0f1;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-          }
-          .menu {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 30px;
-          }
-          a { 
-            float: left;
-            margin-right: 10px;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-          }
+        <style>
+          ${sytle}
         </style>
       </head>
       <body>
-        <div class="welcome">System Audit version 0.5</div>
+        <div class="welcome">System Audit version 1.0.5</div>
         <h1>Memoria RAM</h1>
         ${formattedOutput}
         <a href="javascript:history.back()">VOLVER</a>
